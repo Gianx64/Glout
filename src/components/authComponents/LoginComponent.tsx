@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Button, TextInput, View, StyleSheet } from 'react-native'
 import { logIn } from '../../firebase/auth';
 
-export const LoginComponent = () => {
+export const LogInComponent = () => {
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
