@@ -3,14 +3,13 @@ import { Button } from 'react-native';
 import { readUserData } from '../../firebase/database';
 
 export const ReadDataComponent = () => {
-
-    const handlerSaveData = () => {
+    const handlerReadData = () => {
         readUserData()
     }
 
     return (
         <Button
-            onPress={handlerSaveData}
+            onPress={handlerReadData}
             title="Leer datos"
             color="#841584"
         />
