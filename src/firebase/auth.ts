@@ -2,7 +2,7 @@ import { createUserWithEmailAndPassword,
 signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "./firebaseConfig";
 
-const signIn = async (email: string, password: string) => {
+const register = async (email: string, password: string) => {
 	return createUserWithEmailAndPassword(auth, email, password)
 		.then((userCredential) => {
 			console.log('Usuario registrado: '+email);
@@ -14,7 +14,7 @@ const signIn = async (email: string, password: string) => {
 		});
 };
 
-const logIn = async (email: string, password: string) => {
+const signIn = async (email: string, password: string) => {
 	return signInWithEmailAndPassword(auth, email, password)
 		.then((userCredential) => {
 			console.log("Nombre de usuario obtenido: ");
@@ -27,4 +27,4 @@ const logIn = async (email: string, password: string) => {
 		});
 };
 
-export { signIn, logIn };
+export { register, signIn };

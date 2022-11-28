@@ -1,14 +1,12 @@
 import React from 'react'
 import { StatusBar, View, StyleSheet } from 'react-native';
-import { LogInComponent } from '../components/authComponents/LoginComponent';
-import { SignInComponents } from '../components/authComponents/SignInComponent';
+import { RegisterComponent } from '../components/authComponents/RegisterComponent';
 
-export const AuthScreen = () => {
+export const RegisterScreen = () => {
     return (
         <View style={styles.container}>
             <StatusBar />
-            {/* <LogInComponent /> */}
-            <SignInComponents />
+            <RegisterComponent />
         </View>
     )
 }
