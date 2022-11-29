@@ -1,12 +1,37 @@
-import React, { useState } from 'react';
-import MapView from 'react-native-maps';
-import { StyleSheet, View } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import * as Location from 'expo-location';
+import MapView, { Callout, Marker } from 'react-native-maps';
+import { StyleSheet, Text, View } from 'react-native';
+import { TouchableHighlight } from 'react-native-gesture-handler';
 
 export const MapComponent = () => {
     const [ubicacion, setUbicacion] = useState({
-        lat: -33.44,
-        lon: -70.65,
+        latitude: -33.44,
+        longitude: -70.65,
     });
+
+	useEffect(() => {
+		getLocationPermission();
+	}, [])
+
+	async function getLocationPermission() {
+		let peticion = await Location.requestForegroundPermissionsAsync();
+		if (peticion.status !== 'granted') {
+			alert('Permiso denegado.');
+			return;
+		}
+		let location = await Location.getCurrentPositionAsync({});
+		const current = {
+			latitude: location.coords.latitude,
+			longitude: location.coords.longitude,
+		}
+		setUbicacion(current);
+	}
+	
+	const ingresarUbicacion = (ubicacion:{latitude:number, longitude:number}) => {
+		// TODO: Guardar en base de datos
+		console.log('Latitud: ' + ubicacion.latitude + ' , longitud: ' + ubicacion.longitude);
+    }
 
     return (
         <View style={styles.container}>
@@ -15,11 +40,24 @@ export const MapComponent = () => {
             showsUserLocation
             showsMyLocationButton
             initialRegion={{
-                latitude: ubicacion.lat,
-                longitude: ubicacion.lon,
+                latitude: ubicacion.latitude,
+                longitude: ubicacion.longitude,
                 latitudeDelta: 0.5,
                 longitudeDelta: 0.2,
-            }} />
+            }}>
+				<Marker draggable
+				coordinate={ubicacion}
+				onDragEnd={(direction) => setUbicacion(direction.nativeEvent.coordinate)}
+				>
+					<Callout onPress= {() => ingresarUbicacion(ubicacion)}>
+                      <TouchableHighlight>
+                          <View>
+                              <Text>Ingresar tienda</Text>
+                          </View>
+                      </TouchableHighlight>
+                    </Callout>
+				</Marker>
+			</MapView>
         </View>
     );
 }
