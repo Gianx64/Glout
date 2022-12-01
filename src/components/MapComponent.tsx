@@ -3,6 +3,7 @@ import * as Location from 'expo-location';
 import MapView, { Callout, Marker } from 'react-native-maps';
 import { StyleSheet, Text, View } from 'react-native';
 import { TouchableHighlight } from 'react-native-gesture-handler';
+import { writeStoreData } from '../firebase/database';
 
 export const MapComponent = () => {
     const [ubicacion, setUbicacion] = useState({
@@ -31,6 +32,7 @@ export const MapComponent = () => {
 	const ingresarUbicacion = (ubicacion:{latitude:number, longitude:number}) => {
 		// TODO: Guardar en base de datos
 		console.log('Latitud: ' + ubicacion.latitude + ' , longitud: ' + ubicacion.longitude);
+        writeStoreData(ubicacion);
     }
 
     return (

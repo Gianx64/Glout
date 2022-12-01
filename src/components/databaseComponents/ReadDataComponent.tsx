@@ -1,10 +1,10 @@
 import React from 'react';
 import { Button } from 'react-native';
-import { readUserData } from '../../firebase/database';
+import { readDataBase } from '../../firebase/database';
 
 export const ReadDataComponent = () => {
     const handlerReadData = () => {
-        readUserData()
+        readDataBase()
     }
 
     return (
