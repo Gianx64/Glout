@@ -1,11 +1,13 @@
 import React from 'react'
 import { StyleSheet, View } from 'react-native'
-import { MapComponent } from '../components/MapComponent';
+import { ReadDataComponent } from '../components/databaseComponents/ReadDataComponent';
+import { WriteDataComponent } from '../components/databaseComponents/WriteDataComponent';
 
-export const MapScreen = () => {
+export const TestScreen = () => {
     return (
         <View style={styles.container}>
-            <MapComponent />
+            {/* <WriteDataComponent />*/}
+            <ReadDataComponent />
         </View>
     )
 }

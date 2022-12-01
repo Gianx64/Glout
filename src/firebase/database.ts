@@ -1,14 +1,15 @@
 import { database } from "./firebaseConfig";
 import { ref, set, onValue } from "firebase/database";
 
-const userRef = ref(database, "users/usuario23");
+//TODO: reemplazar "stores" por "stores/{user.email}"
+const storesRef = ref(database, "stores");
 
-const writeUserData = (data: any) => {
-  return set(userRef, data);
+const writeStoreData = (data: any) => {
+  return set(storesRef, data);
 };
 
-const readUserData = () => {
-  onValue(userRef, (snapshot) => {
+const readDataBase = () => {
+  onValue(storesRef, (snapshot) => {
     const data = snapshot.val();
     console.log('====================')
     console.log('DATA en RDB')
@@ -16,4 +17,4 @@ const readUserData = () => {
   });
 };
 
-export { writeUserData, readUserData };
+export { writeStoreData, readDataBase };
