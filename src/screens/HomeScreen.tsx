@@ -15,7 +15,6 @@ export const HomeScreen = ({ navigation }:any) => {
     )
 }
 
-
 const styles = StyleSheet.create({
     container: {
         flex: 1,
