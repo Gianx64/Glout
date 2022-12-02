@@ -3,29 +3,48 @@ import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { NavigationContainer } from '@react-navigation/native';
-import { RegisterScreen } from './src/screens/RegisterScreen';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { SignUpScreen } from './src/screens/SignUpScreen';
 import { SignInScreen } from './src/screens/SignInScreen';
 import { MapScreen } from './src/screens/MapScreen';
-import { TestScreen } from './src/screens/TestScreen';
+import { HomeScreen } from './src/screens/HomeScreen';
+import { SaveStoreScreen } from './src/screens/SaveStoreScreen';
 
+const Stack = createNativeStackNavigator();
+
+function MyStack() {
+	return (
+		//<NavigationContainer>{
+			<Stack.Navigator initialRouteName="Home Screen">
+				<Stack.Screen name="Home Screen" component={HomeScreen} />
+				<Stack.Screen name="SignUp Screen" component={SignUpScreen} />
+				<Stack.Screen name="SignIn Screen" component={SignInScreen} />
+				<Stack.Screen name="Map Screen" component={MapScreen} />
+				<Stack.Screen name="SaveStoreScreen" component={SaveStoreScreen} />
+			</Stack.Navigator>
+		//}</NavigationContainer>
+	)
+}
+/*
 const Drawer = createDrawerNavigator();
 
 function MyDrawer() {
 	return (
-		<Drawer.Navigator useLegacyImplementation={true} initialRouteName="Home">
-			<Drawer.Screen name="Test Screen" component={TestScreen} />
-			<Drawer.Screen name="Register Screen" component={RegisterScreen} />
+		<Drawer.Navigator useLegacyImplementation={true} initialRouteName="MapScreen">
+			<Drawer.Screen name="Home Screen" component={HomeScreen} />
+			<Drawer.Screen name="SignUp Screen" component={SignUpScreen} />
 			<Drawer.Screen name="SignIn Screen" component={SignInScreen} />
 			<Drawer.Screen name="Map Screen" component={MapScreen} />
 		</Drawer.Navigator>
 	)
-}
+}*/
 
 export default function App() {
 	return (
-		<NavigationContainer>{
-			<MyDrawer />
-		}</NavigationContainer>
+		<NavigationContainer>
+			{/* <MyDrawer /> */}
+			<MyStack />
+		</NavigationContainer>
 	);
 }
 

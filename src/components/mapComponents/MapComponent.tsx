@@ -3,9 +3,8 @@ import * as Location from 'expo-location';
 import MapView, { Callout, Marker } from 'react-native-maps';
 import { StyleSheet, Text, View } from 'react-native';
 import { TouchableHighlight } from 'react-native-gesture-handler';
-import { writeStoreData } from '../firebase/database';
 
-export const MapComponent = () => {
+export const MapComponent = ({ navigation }:any) => {
     const [ubicacion, setUbicacion] = useState({
         latitude: -33.44,
         longitude: -70.65,
@@ -28,12 +27,6 @@ export const MapComponent = () => {
 		}
 		setUbicacion(current);
 	}
-	
-	const ingresarUbicacion = (ubicacion:{latitude:number, longitude:number}) => {
-		// TODO: Guardar en base de datos
-		console.log('Latitud: ' + ubicacion.latitude + ' , longitud: ' + ubicacion.longitude);
-        writeStoreData(ubicacion);
-    }
 
     return (
         <View style={styles.container}>
@@ -51,7 +44,7 @@ export const MapComponent = () => {
 				coordinate={ubicacion}
 				onDragEnd={(direction) => setUbicacion(direction.nativeEvent.coordinate)}
 				>
-					<Callout onPress= {() => ingresarUbicacion(ubicacion)}>
+					<Callout onPress= {() => {navigation.navigate('SaveStoreScreen', { ubicacion })}}>
                       <TouchableHighlight>
                           <View>
                               <Text>Ingresar tienda</Text>
@@ -61,7 +54,7 @@ export const MapComponent = () => {
 				</Marker>
 			</MapView>
         </View>
-    );
+    )
 }
 
 const styles = StyleSheet.create({

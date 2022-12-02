@@ -2,7 +2,7 @@ import { createUserWithEmailAndPassword,
 signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "./firebaseConfig";
 
-const register = async (email: string, password: string) => {
+const signUp = async (email: string, password: string) => {
 	return createUserWithEmailAndPassword(auth, email, password)
 		.then((userCredential) => {
 			console.log('Usuario registrado: '+email);
@@ -27,4 +27,4 @@ const signIn = async (email: string, password: string) => {
 		});
 };
 
-export { register, signIn };
+export { signUp, signIn };

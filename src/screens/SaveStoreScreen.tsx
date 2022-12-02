@@ -1,19 +1,23 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Button, StyleSheet, TextInput, View } from 'react-native'
 import { writeStoreData } from '../firebase/database';
+import { auth } from '../firebase/firebaseConfig';
 
-export const SaveStoreScreen = (ubicacion:{latitude:number, longitude:number}) => {
+export const SaveStoreScreen = ({ navigation, route }:any) => {
     const [name, onChangeName] = useState("");
     const [description, onChangeDescription] = useState("");
     const [contact, onChangeContact] = useState("");
 
+    useEffect(() => {
+        //console.log(route.params);
+    }, []);
+
     const store = {
-        owner: 'owner',
-        latitude: ubicacion.latitude,
-        longitude: ubicacion.longitude,
-        name: name,
+        contact: contact,
         description: description,
-        contact: contact
+        latitude: route.params.ubicacion.latitude,
+        longitude: route.params.ubicacion.longitude,
+        name: name,
     }
 
     const handlerSaveData = () => {
@@ -59,9 +63,9 @@ const styles = StyleSheet.create({
         width: '100%',
     },
     input: {
-      height: 40,
-      margin: 12,
-      borderWidth: 1,
-      padding: 10,
+        margin: 12,
+        height: 40,
+        borderWidth: 1,
+        padding: 10,
     },
 });

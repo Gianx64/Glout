@@ -1,8 +1,7 @@
-import { database } from "./firebaseConfig";
+import { auth, database } from "./firebaseConfig";
 import { ref, set, onValue } from "firebase/database";
 
-//TODO: reemplazar "stores" por "stores/{user.email}"
-const storesRef = ref(database, "stores");
+const storesRef = ref(database, "stores/"+auth.currentUser?.email);
 
 const writeStoreData = (data: any) => {
   return set(storesRef, data);

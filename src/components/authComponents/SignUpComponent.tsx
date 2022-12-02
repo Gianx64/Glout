@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { TextInput, StyleSheet, View, Button, Text } from 'react-native';
-import { register } from '../../firebase/auth';
+import { signUp } from '../../firebase/auth';
 
 interface IError {
     code: string;
     message: string;
 }
 
-export const RegisterComponent = () => {
-
+export const SignUpComponent = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [loading, setLoading] = useState(false);
@@ -17,7 +16,7 @@ export const RegisterComponent = () => {
 
     const handlerSubmit = async () => {
         setLoading(true);
-        const user = await register(email, password);
+        const user = await signUp(email, password);
         if (user) {
             // TODO: guardar datos del usuario en el storage(context, reducer, redux, etc...)
             setLoading(false);
@@ -51,7 +50,6 @@ export const RegisterComponent = () => {
         )
     }
 
-
     return (
         <View style={styles.container}>
             <TextInput
@@ -79,7 +77,6 @@ export const RegisterComponent = () => {
         </View>
     )
 }
-
 
 const styles = StyleSheet.create({
     container: {
