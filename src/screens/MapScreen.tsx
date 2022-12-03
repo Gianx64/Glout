@@ -1,9 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import * as Location from 'expo-location';
 import MapView, { Callout, Marker } from 'react-native-maps';
-import { Text, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import { TouchableHighlight } from 'react-native-gesture-handler';
 import { readStoresData } from '../firebase/database';
+import { FAB } from 'react-native-paper';
+import { data } from './data';
+/* import { FAB } from "../../FAB"; */
+import { mapstyle } from './MapsStyle';
 
 type store = {
   contact: string,
@@ -15,23 +19,6 @@ type store = {
   name: string,
   submitter: string
 }
-import { FAB } from 'react-native-paper';
-import { data } from './data';
-/* import { FAB } from "../../FAB"; */
-
-import {
-    StyleSheet,
-    Animated,
-    Image,
-    ViewProps,
-    ImageURISource,
-    ImageRequireSource,
-  } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import { mapstyle } from './MapsStyle';
-  
-
-
 
 export const MapScreen = ({ navigation }:any) => {
     const [ubicacion, setUbicacion] = useState({
@@ -74,22 +61,31 @@ export const MapScreen = ({ navigation }:any) => {
                 longitudeDelta: 0.2,
             }}>
                 <Marker draggable
-                coordinate={ubicacion}
-                onDragEnd={(direction) => setUbicacion(direction.nativeEvent.coordinate)}
+                    coordinate={ubicacion}
+                    onDragEnd={(direction) => setUbicacion(direction.nativeEvent.coordinate)}
                 >
                     <Callout onPress= {() => {navigation.navigate('SaveStoreScreen', { ubicacion })}}>
-                    <TouchableHighlight>
-                        <View>
-                            <Text>Ingresar tienda</Text>
-                        </View>
-                    </TouchableHighlight>
+                        <TouchableHighlight>
+                            <View>
+                                <Text>Ingresar tienda</Text>
+                            </View>
+                        </TouchableHighlight>
                     </Callout>
                 </Marker>
-                {data.map((val, i) => {
+                {data.map((store, i) => {
                     return (
                         <Marker
-                            coordinate={val.coords}
-                        />
+                            pinColor='blue'
+                            coordinate={store.coords}
+                        >
+                            <Callout onPress= {() => {navigation.navigate('ShowStoreScreen', { store })}}>
+                                <TouchableHighlight>
+                                    <View>
+                                        <Text>Ver tienda {store.description}</Text>
+                                    </View>
+                                </TouchableHighlight>
+                            </Callout>
+                        </Marker>
                     ) 
                 })}
 			</MapView>

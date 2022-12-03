@@ -1,13 +1,14 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 
 export const ShowStoreScreen = ({ navigator, route }:any) => {
+    console.log(route.params);
     return (
         <View style={styles.container}>
-            <Text>Tienda: {route.params.name}</Text>
-            <Text>¿Tiene delivery? {route.params.delivery ? 'Si' : 'No'}</Text>
-            <Text>Contacto: {route.params.contact}</Text>
-            <Text>Descripción: {route.params.description}</Text>
+            <Text>Tienda: {route.params.store.name ?? 'No se sabe'}</Text>
+            <Text>¿Tiene delivery? {route.params.store.delivery ? 'Si' : 'No'}</Text>
+            <Text>Contacto: {route.params.store.contact ?? 'No se sabe'}</Text>
+            <Text>Descripción: {route.params.store.description ?? 'No se sabe'}</Text>
         </View>
     )
 }
