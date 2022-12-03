@@ -1,23 +1,24 @@
 import React, { useEffect, useState } from 'react'
-import { Button, StyleSheet, TextInput, View } from 'react-native'
+import { Button, StyleSheet, Text, TextInput, View } from 'react-native'
 import { writeStoreData } from '../firebase/database';
 import { auth } from '../firebase/firebaseConfig';
+import CheckBox from 'expo-checkbox';
 
 export const SaveStoreScreen = ({ navigation, route }:any) => {
-    const [name, onChangeName] = useState("");
-    const [description, onChangeDescription] = useState("");
     const [contact, onChangeContact] = useState("");
-
-    useEffect(() => {
-        //console.log(route.params);
-    }, []);
+    const [delivery, onChangeDelivery] = useState(false);
+    const [description, onChangeDescription] = useState("");
+    const [name, onChangeName] = useState("");
 
     const store = {
         contact: contact,
+        delivery: delivery,
         description: description,
         latitude: route.params.ubicacion.latitude,
+        likes: 0,
         longitude: route.params.ubicacion.longitude,
         name: name,
+        submitter: auth.currentUser?.email ?? 'anonymous'
     }
 
     const handlerSaveData = () => {
@@ -33,19 +34,29 @@ export const SaveStoreScreen = ({ navigation, route }:any) => {
                 placeholder="Nombre de la tienda."
             />
             <TextInput
-              style={styles.input}
-              onChangeText={onChangeContact}
-              value={contact}
-              placeholder="Contacto (FB, IG, Teléfono)."
+                style={styles.input}
+                onChangeText={onChangeContact}
+                value={contact}
+                placeholder="Contacto (FB, IG, Teléfono)."
             />
+            <CheckBox
+                disabled={false}
+                value={delivery}
+                onValueChange={() => onChangeDelivery(!delivery)}
+            />
+            <Text>¿Tiene delivery?</Text>
             <TextInput
                 style={styles.input}
                 onChangeText={onChangeDescription}
                 value={description}
-                placeholder="Descripción de la tienda."
+                placeholder="¿Qué ofrece? (Información adicional)"
             />
             <Button
-                onPress={handlerSaveData}
+                onPress={() => {
+                    handlerSaveData();
+                    console.log('Tienda guardada: '+store);
+                    navigation.navigate('Map Screen');
+                }}
                 title="Guardar datos"
                 color="#841584"
             />
@@ -53,6 +64,7 @@ export const SaveStoreScreen = ({ navigation, route }:any) => {
     )
 }
 
+export default SaveStoreScreen
 
 const styles = StyleSheet.create({
     container: {

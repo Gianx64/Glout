@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { TextInput, StyleSheet, View, Button, Text } from 'react-native';
 import { signUp } from '../../firebase/auth';
+import { writeUserData } from '../../firebase/database';
 
 interface IError {
     code: string;
@@ -19,6 +20,7 @@ export const SignUpComponent = () => {
         const user = await signUp(email, password);
         if (user) {
             // TODO: guardar datos del usuario en el storage(context, reducer, redux, etc...)
+            writeUserData();
             setLoading(false);
         } else {
             // TODO: manejar el error

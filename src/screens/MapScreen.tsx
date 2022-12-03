@@ -3,15 +3,31 @@ import * as Location from 'expo-location';
 import MapView, { Callout, Marker } from 'react-native-maps';
 import { StyleSheet, Text, View } from 'react-native';
 import { TouchableHighlight } from 'react-native-gesture-handler';
+import { readStoresData } from '../firebase/database';
+
+type store = {
+  contact: string,
+  delivery: boolean,
+  description: string,
+  latitude: number,
+  likes: number,
+  longitude: number,
+  name: string,
+  submitter: string
+}
 
 export const MapScreen = ({ navigation }:any) => {
     const [ubicacion, setUbicacion] = useState({
         latitude: -33.44,
         longitude: -70.65,
     });
+    const stores = readStoresData();
+    //const [stores, setStores] = useState({});
 
 	useEffect(() => {
 		getLocationPermission();
+        //setStores(readStoresData());
+        console.log(stores);
 	}, [])
 
 	async function getLocationPermission() {
@@ -52,10 +68,19 @@ export const MapScreen = ({ navigation }:any) => {
                       </TouchableHighlight>
                     </Callout>
 				</Marker>
+                {/*stores.map(stores => (
+                    <Marker 
+                    pinColor={'green'}
+                    coordinate={{stores.latitude, stores.longitude}}
+                    title={stores.title}
+                    />
+                ))*/}
 			</MapView>
         </View>
     )
 }
+
+export default MapScreen
 
 const styles = StyleSheet.create({
     container: {

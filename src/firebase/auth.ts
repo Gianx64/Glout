@@ -17,8 +17,7 @@ const signUp = async (email: string, password: string) => {
 const signIn = async (email: string, password: string) => {
 	return signInWithEmailAndPassword(auth, email, password)
 		.then((userCredential) => {
-			console.log("Nombre de usuario obtenido: ");
-			console.log(userCredential.user);
+			console.log("Credenciales de usuario obtenido: "+userCredential.user);
 			return true;
 		})
 		.catch((error) => {
@@ -27,4 +26,14 @@ const signIn = async (email: string, password: string) => {
 		});
 };
 
-export { signUp, signIn };
+const signOut = () => {
+	auth.signOut().then(() => {
+		console.log('Sesión cerrada.');
+		return true;
+	}).catch((error) => {
+		console.error(error);
+		return false;
+	});
+}
+
+export { signUp, signIn, signOut };
