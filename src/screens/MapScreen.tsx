@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import * as Location from 'expo-location';
 import MapView, { Callout, Marker } from 'react-native-maps';
-import { StyleSheet, Text, View } from 'react-native';
+import { Text, View } from 'react-native';
 import { TouchableHighlight } from 'react-native-gesture-handler';
 import { readStoresData } from '../firebase/database';
 
@@ -15,6 +15,23 @@ type store = {
   name: string,
   submitter: string
 }
+import { FAB } from 'react-native-paper';
+import { data } from './data';
+/* import { FAB } from "../../FAB"; */
+
+import {
+    StyleSheet,
+    Animated,
+    Image,
+    ViewProps,
+    ImageURISource,
+    ImageRequireSource,
+  } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { mapstyle } from './MapsStyle';
+  
+
+
 
 export const MapScreen = ({ navigation }:any) => {
     const [ubicacion, setUbicacion] = useState({
@@ -56,29 +73,34 @@ export const MapScreen = ({ navigation }:any) => {
                 latitudeDelta: 0.5,
                 longitudeDelta: 0.2,
             }}>
-				<Marker draggable
-				coordinate={ubicacion}
-				onDragEnd={(direction) => setUbicacion(direction.nativeEvent.coordinate)}
-				>
-					<Callout onPress= {() => {navigation.navigate('SaveStoreScreen', { ubicacion })}}>
-                      <TouchableHighlight>
-                          <View>
-                              <Text>Ingresar tienda</Text>
-                          </View>
-                      </TouchableHighlight>
+                <Marker draggable
+                coordinate={ubicacion}
+                onDragEnd={(direction) => setUbicacion(direction.nativeEvent.coordinate)}
+                >
+                    <Callout onPress= {() => {navigation.navigate('SaveStoreScreen', { ubicacion })}}>
+                    <TouchableHighlight>
+                        <View>
+                            <Text>Ingresar tienda</Text>
+                        </View>
+                    </TouchableHighlight>
                     </Callout>
-				</Marker>
-                {/*stores.map(stores => (
-                    <Marker 
-                    pinColor={'green'}
-                    coordinate={{stores.latitude, stores.longitude}}
-                    title={stores.title}
-                    />
-                ))*/}
+                </Marker>
+                {data.map((val, i) => {
+                    return (
+                        <Marker
+                            coordinate={val.coords}
+                        />
+                    ) 
+                })}
 			</MapView>
+            <FAB
+                style={{mapstyle}}
+                icon="plus" />
         </View>
     )
 }
+/*esta wea del FAB es un boton, pensaba que podriamos poner la lista de tiendas ahi, pero no funciona ni declarando manual, se ve un cubo verde xd */
+/*En el espacio del return queria poner que mostrara las descripciones de las tiendas, pero no funciona, lo mismo si pongo el boton ahi, me sale jsx expressions must have one parent element */
 
 export default MapScreen
 
