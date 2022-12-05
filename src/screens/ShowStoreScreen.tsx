@@ -1,6 +1,7 @@
 import React from 'react'
-import { ScrollViewComponent, StyleSheet, Text, View, Button, Alert } from 'react-native'
+import { StyleSheet, Text, View } from 'react-native'
 import { ScrollView } from 'react-native-gesture-handler';
+import { BlackButton, LikeButton, DislikeButton} from '../components/buttonComponents/buttons';
 
 
 export const ShowStoreScreen = ({ navigator, route }:any) => {
@@ -13,12 +14,9 @@ export const ShowStoreScreen = ({ navigator, route }:any) => {
                 <Text style={{fontSize: 30}}>Contacto: {route.params.store.contact ?? 'No se sabe'}</Text>
                 <Text style={{fontSize: 30}}>Descripción: {route.params.store.description ?? 'No se sabe'}</Text>
                 <Text style={{fontSize: 20}}>Likes: # / Dislikes: #</Text>
-                <Text> </Text>
-                <Button title="Guardar" onPress={() => Alert.alert('boton guardar')}/>
-                <Text> </Text>
-                <Button title="Like" onPress={() => Alert.alert('boton like apretado')}/>
-                <Text> </Text>
-                <Button title="Dislike" onPress={() => Alert.alert('boton dislike')}/>
+                <BlackButton onPress = {() => alert('Boton presionado')} text='Guardar'/>
+                <LikeButton onPress = {() => alert('Boton presionado')} text='Like' /> 
+                <DislikeButton onPress = {() => alert('Boton presionado')} text='Dislike' />
             </ScrollView>
         </View>
     )
@@ -34,5 +32,6 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         width: '100%',
-    }
+    },
+
 });
