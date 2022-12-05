@@ -15,8 +15,8 @@ export const ShowStoreScreen = ({ navigator, route }:any) => {
                 <Text style={{fontSize: 30}}>Descripción: {route.params.store.description ?? 'No se sabe'}</Text>
                 <Text style={{fontSize: 20}}>Likes: # / Dislikes: #</Text>
                 <BlackButton onPress = {() => alert('Boton presionado')} text='Guardar'/>
-                <LikeButton onPress = {() => alert('Boton presionado')} text='Like' /> 
-                <DislikeButton onPress = {() => alert('Boton presionado')} text='Dislike' />
+                <LikeButton onPress = {() => alert('Boton presionado')} text='Me gusta' /> 
+                <DislikeButton onPress = {() => alert('Boton presionado')} text='No me gusta' />
             </ScrollView>
         </View>
     )
