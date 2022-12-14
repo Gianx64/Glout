@@ -14,8 +14,8 @@ export const SignInComponent = () => {
 
     const handlerSubmit = async () => {
         setLoading(true);
-        const successRegister = await signIn(email, password);
-        if (successRegister) {
+        const successSignIn = await signIn(email, password);
+        if (successSignIn) {
             setLoading(false);
         } else {
             setLoading(false);
