@@ -8,7 +8,6 @@ export const HomeScreen = () => {
 	const navigation = useNavigation();
     return (
         <View style={styles.container}>
-			{ navigation.canGoBack() }
             {/* <WriteDataComponent />*/}
             <ReadDataComponent />
             <Button title={'Ir a perfil'} onPress={() => {navigation.navigate('User Screen')}} />

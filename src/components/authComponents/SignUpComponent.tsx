@@ -1,7 +1,9 @@
+import { StackActions, useNavigation } from '@react-navigation/native';
 import React, { useEffect, useState } from 'react';
 import { TextInput, StyleSheet, View, Button, Text } from 'react-native';
 import { signUp } from '../../firebase/auth';
 import { writeUserData } from '../../firebase/database';
+import { auth } from '../../firebase/firebaseConfig';
 
 interface IError {
     code: string;
@@ -14,6 +16,7 @@ export const SignUpComponent = () => {
     const [loading, setLoading] = useState(false);
     const [correctData, setCorrectData] = useState(false);
     const [error, setError] = useState<IError | undefined>(undefined);
+	const navigation = useNavigation();
 
     const handlerSubmit = async () => {
         setLoading(true);
@@ -39,8 +42,21 @@ export const SignUpComponent = () => {
         else {
             setCorrectData(true)
         }
-
     }, [email, password])
+
+	useEffect(() => {
+		const unsubscribe = auth.onAuthStateChanged(user => {
+			if (user) {
+				navigation.dispatch(StackActions.popToTop());
+				navigation.dispatch({
+					...StackActions.replace('Home Screen'),
+					source: undefined,
+					target: navigation.getState().key,
+				  });
+			}
+		})
+		return unsubscribe;
+	}, [])
 
     if (error) {
         return (
