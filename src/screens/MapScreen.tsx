@@ -81,7 +81,7 @@ export const MapScreen = ({ navigation }:any) => {
                             <Callout onPress= {() => {navigation.navigate('ShowStoreScreen', { store })}}>
                                 <TouchableHighlight>
                                     <View>
-                                        <Text>Ver tienda {store.description}</Text>
+                                        <Text>Tienda: {store.name_sucursal}</Text>
                                     </View>
                                 </TouchableHighlight>
                             </Callout>
