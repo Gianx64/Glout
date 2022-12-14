@@ -3,15 +3,38 @@ import * as Location from 'expo-location';
 import MapView, { Callout, Marker } from 'react-native-maps';
 import { StyleSheet, Text, View } from 'react-native';
 import { TouchableHighlight } from 'react-native-gesture-handler';
+import { readStoresData } from '../../firebase/database';
+import { FAB } from 'react-native-paper';
+import { data } from './data';
+/* import { FAB } from "../../FAB"; */
+import { mapstyle } from './MapsStyle';
+import { useNavigation } from '@react-navigation/native';
 
-export const MapComponent = ({ navigation }:any) => {
+type store = {
+  contact: string,
+  delivery: boolean,
+  description: string,
+  latitude: number,
+  likes: number,
+  longitude: number,
+  name: string,
+  submitter: string
+}
+
+export const MapComponent = () => {
     const [ubicacion, setUbicacion] = useState({
         latitude: -33.44,
         longitude: -70.65,
     });
+    const stores = readStoresData();
+    //const [stores, setStores] = useState({});
+
+	const navigation = useNavigation();
 
 	useEffect(() => {
 		getLocationPermission();
+        //setStores(readStoresData());
+        console.log(stores);
 	}, [])
 
 	async function getLocationPermission() {
@@ -40,22 +63,43 @@ export const MapComponent = ({ navigation }:any) => {
                 latitudeDelta: 0.5,
                 longitudeDelta: 0.2,
             }}>
-				<Marker draggable
-				coordinate={ubicacion}
-				onDragEnd={(direction) => setUbicacion(direction.nativeEvent.coordinate)}
-				>
-					<Callout onPress= {() => {navigation.navigate('SaveStoreScreen', { ubicacion })}}>
-                      <TouchableHighlight>
-                          <View>
-                              <Text>Ingresar tienda</Text>
-                          </View>
-                      </TouchableHighlight>
+                <Marker draggable
+                    coordinate={ubicacion}
+                    onDragEnd={(direction) => setUbicacion(direction.nativeEvent.coordinate)}
+                >
+                    <Callout onPress= {() => {navigation.navigate('SaveStoreScreen', { ubicacion })}}>
+                        <TouchableHighlight>
+                            <View>
+                                <Text>Ingresar tienda</Text>
+                            </View>
+                        </TouchableHighlight>
                     </Callout>
-				</Marker>
+                </Marker>
+                {data.map((store, i) => {
+                    return (
+                        <Marker
+                            pinColor='blue'
+                            coordinate={store.coords}
+                        >
+                            <Callout onPress= {() => {navigation.navigate('ShowStoreScreen', { store })}}>
+                                <TouchableHighlight>
+                                    <View>
+                                        <Text>Ver tienda {store.description}</Text>
+                                    </View>
+                                </TouchableHighlight>
+                            </Callout>
+                        </Marker>
+                    ) 
+                })}
 			</MapView>
+            <FAB
+                style={{mapstyle}}
+                icon="plus" />
         </View>
     )
 }
+/*esta wea del FAB es un boton, pensaba que podriamos poner la lista de tiendas ahi, pero no funciona ni declarando manual, se ve un cubo verde xd */
+/*En el espacio del return queria poner que mostrara las descripciones de las tiendas, pero no funciona, lo mismo si pongo el boton ahi, me sale jsx expressions must have one parent element */
 
 const styles = StyleSheet.create({
     container: {

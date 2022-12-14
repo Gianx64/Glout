@@ -1,12 +1,16 @@
+import { useNavigation, StackActions } from '@react-navigation/native';
 import React, { useEffect, useState } from 'react'
 import { Button, TextInput, View, StyleSheet } from 'react-native'
 import { signIn } from '../../firebase/auth';
+import { auth } from '../../firebase/firebaseConfig';
 
 export const SignInComponent = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [loading, setLoading] = useState(false);
     const [correctData, setCorrectData] = useState(false);
+
+	const navigation = useNavigation();
 
     const handlerSubmit = async () => {
         setLoading(true);
@@ -25,8 +29,20 @@ export const SignInComponent = () => {
         else {
             setCorrectData(true)
         }
-
     }, [email, password])
+
+	useEffect(() => {
+		const unsubscribe = auth.onAuthStateChanged(user => {
+			if (user) {
+				navigation.dispatch({
+					...StackActions.replace('Home Screen'),
+					source: undefined,
+					target: navigation.getState().key,
+				  });
+			}
+		})
+		return unsubscribe;
+	}, [])
 
 
     return (
@@ -53,6 +69,10 @@ export const SignInComponent = () => {
                     disabled={loading || correctData}
                 />
             </View>
+            <Button
+				title={'Registrarse'}
+				onPress={() => {navigation.navigate('SignUp Screen')}}
+			/>
         </View>
     )
 }
