@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { Button, TextInput, View, StyleSheet } from 'react-native'
 import { signIn } from '../../firebase/auth';
 import { auth } from '../../firebase/firebaseConfig';
+import styles from '../../styles/Styles';
 
 interface IError {
     code: string;
@@ -72,7 +73,7 @@ export const SignInComponent = () => {
                 style={styles.input}
                 secureTextEntry
             />
-            <View style={{ marginTop: 50, width: '50%' }}>
+            <View style={styles.botonSigInComponent}>
                 <Button
                     onPress={handlerSubmit}
                     title={loading ? 'Iniciando Sesión...' : 'Inicia Sesión'}
@@ -88,19 +89,4 @@ export const SignInComponent = () => {
     )
 }
 
-const styles = StyleSheet.create({
-    container: {
-        width: '100%',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center'
-    },
-    input: {
-        backgroundColor: 'rgba(0,0,0,0.1)',
-        height: 40,
-        width: '90%',
-        borderRadius: 50,
-        paddingHorizontal: 10,
-        marginVertical: 10,
-    },
-});
+

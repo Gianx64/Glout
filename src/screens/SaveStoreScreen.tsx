@@ -3,6 +3,8 @@ import { Button, StyleSheet, Text, TextInput, View } from 'react-native'
 import { writeStoreData } from '../firebase/database';
 import { auth } from '../firebase/firebaseConfig';
 import CheckBox from 'expo-checkbox';
+import styles from '../styles/Styles';
+
 
 export const SaveStoreScreen = ({ navigation, route }:any) => {
     const [address, onChangeAddress] = useState('');
@@ -101,18 +103,3 @@ export const SaveStoreScreen = ({ navigation, route }:any) => {
 
 export default SaveStoreScreen
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        width: '100%',
-    },
-    input: {
-        margin: 12,
-        height: 40,
-        borderWidth: 1,
-        padding: 10,
-    },
-});

@@ -4,6 +4,8 @@ import { TextInput, StyleSheet, View, Button, Text } from 'react-native';
 import { signUp } from '../../firebase/auth';
 import { writeUserData } from '../../firebase/database';
 import { auth } from '../../firebase/firebaseConfig';
+import styles from '../../styles/Styles';
+
 
 interface IError {
     code: string;
@@ -100,7 +102,7 @@ export const SignUpComponent = () => {
                 style={styles.input}
                 secureTextEntry
             />
-            <View style={{ marginTop: 50, width: '50%' }}>
+            <View style={styles.botonSigUpComponent}>
                 <Button
                     onPress={handlerSubmit}
                     title={loading ? 'Creando usuario...' : 'Registrarse'}
@@ -112,19 +114,3 @@ export const SignUpComponent = () => {
     )
 }
 
-const styles = StyleSheet.create({
-    container: {
-        width: '100%',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center'
-    },
-    input: {
-        backgroundColor: 'rgba(0,0,0,0.1)',
-        height: 40,
-        width: '90%',
-        borderRadius: 50,
-        paddingHorizontal: 10,
-        marginVertical: 10,
-    },
-});

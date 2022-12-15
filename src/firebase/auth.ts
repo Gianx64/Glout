@@ -34,6 +34,7 @@ const signOut = async () => {
 		console.error(error);
 		return false;
 	});
+	return false;
 }
 
 export { signUp, signIn, signOut };

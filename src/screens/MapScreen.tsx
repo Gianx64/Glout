@@ -3,6 +3,8 @@ import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { MapComponent } from '../components/mapComponents/MapComponent';
 import { Callout } from 'react-native-maps';
 import { FAB } from 'react-native-paper';
+import styles from '../styles/Styles';
+
 
 export const MapScreen = () => {
     return (
@@ -21,40 +23,3 @@ export const MapScreen = () => {
 }
 
 export default MapScreen
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        width: '100%',
-    },
-    //fab
-    flex: {
-        flex: 1
-    },
-    fab: {
-        position: "absolute",
-        right: 50,
-        bottom: 50,
-        margin: 20
-    },
-    //fab
-    buttonCallout: {
-        flex: 1,
-        flexDirection:'row',
-        position:'absolute',
-        bottom:10,
-        alignSelf: "center",
-        justifyContent: "space-between",
-        backgroundColor: "transparent",
-        borderWidth: 0.5,
-        borderRadius: 100
-    },
-    touchable: {
-        backgroundColor: "lightblue",
-        padding: 10,
-        margin: 10
-    },
-    touchableText: {
-        fontSize: 16
-    },
-});

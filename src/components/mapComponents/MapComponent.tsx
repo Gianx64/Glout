@@ -6,6 +6,8 @@ import { readStoresData } from '../../firebase/database';
 import { StackActions, useNavigation } from '@react-navigation/native';
 import { data } from './data';
 import { FAB } from 'react-native-paper';
+import styles from '../../styles/Styles';
+
 
 type store = {
     name: string,
@@ -88,13 +90,3 @@ export const MapComponent = () => {
     )
 }
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        width: '100%',
-    },
-    map: {
-        width: '100%',
-        height: '100%',
-    },
-});
