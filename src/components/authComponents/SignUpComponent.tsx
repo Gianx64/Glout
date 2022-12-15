@@ -77,14 +77,14 @@ export const SignUpComponent = () => {
                 onChangeText={setName}
                 value={nombre}
                 style={styles.input}
-                secureTextEntry
+                keyboardType= 'default'
             />
             <TextInput
                 placeholder="Ingrese su apellido"
                 onChangeText={setaSurname}
                 value={surname}
                 style={styles.input}
-                secureTextEntry
+                keyboardType= 'default'
             />
             <TextInput
                 placeholder="Ingrese Email"
