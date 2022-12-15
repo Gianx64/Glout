@@ -1,23 +1,36 @@
 import { StackActions, useNavigation } from '@react-navigation/native'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { StyleSheet, View, Text, Button, TextInput } from 'react-native'
 import { signOut } from '../firebase/auth'
 import { auth } from '../firebase/firebaseConfig'
 
+
+
+
 const UserScreen = () => {
+    const [loading, setLoading] = useState(false);
 	const navigation = useNavigation();
+    const handlerSubmit = async () => {
+        setLoading(true);
+        const successSignIn = signOut();
+        setLoading(false);
+    
+    }
+    useEffect(() => {
+		const unsubscribe = auth.onAuthStateChanged(user => {
+			if (user) {
+			// IMPLEMENTAR NAVEGACION	
+			}
+		})
+        return unsubscribe;
+	}, [])
+    
     return (
         <View style={styles.container}>
             <Text>Correo electrónico: {auth.currentUser?.email}</Text>
-            <Button title={'Sign Out'}
-				onPress={() => {signOut();
-					navigation.dispatch(StackActions.popToTop());
-					navigation.dispatch({
-						...StackActions.replace('SignIn Screen'),
-						source: undefined,
-						target: navigation.getState().key,
-					  });
-				}}
+            <Button title={loading ?'Saliendo...': 'Salir'}
+				onPress={handlerSubmit
+				}
 			/>
         </View>
     )
