@@ -2,14 +2,19 @@ import { auth, database } from "./firebaseConfig";
 import { ref, set, onValue, update } from "firebase/database";
 
 type store = {
-  contact: string,
-  delivery: boolean,
-  description: string,
-  latitude: number,
-  likes: number,
-  longitude: number,
   name: string,
-  submitter: string
+  address: string,
+  contact: string,
+  coords: {latitude: number, longitude: number}
+  | {latitude: number, longitude: number, latitudeDelta: number, longitudeDelta: number},
+  delivery: string,
+  description: string,
+  submitter: string,
+  webpage: string,
+  schedule: string,
+  social: string,
+  likes: number,
+  dislikes: number
 }
 
 const readDataBase = () => {

@@ -35,7 +35,7 @@ export const ShowStoreScreen = ({ navigator, route }:any) => {
             </ScrollView>
             <View style={{...styles.bottom}}>
                 <Text style={{...styles.coment}}>Likes: # / Dislikes: #</Text>
-                <BlackButton onPress = {() => handlerSave(route.params.store.name_sucursal)} text='Guardar'/>
+                <BlackButton onPress = {() => handlerSave(route.params.store.name_sucursal)} text='Guardar' />
                 <LikeButton onPress = {() => handlerLike(route.params.store.name_sucursal)} text='Me gusta' /> 
                 <DislikeButton onPress = {() => handlerDislike(route.params.store.name_sucursal)} text='No me gusta' />
             </View>
@@ -75,9 +75,7 @@ const styles = StyleSheet.create({
 
     },
     bottom:{
-
         justifyContent: 'flex-end',
         alignItems: 'center',	
     }
-
 });

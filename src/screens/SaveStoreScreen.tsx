@@ -1,24 +1,34 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { Button, StyleSheet, Text, TextInput, View } from 'react-native'
 import { writeStoreData } from '../firebase/database';
 import { auth } from '../firebase/firebaseConfig';
 import CheckBox from 'expo-checkbox';
 
 export const SaveStoreScreen = ({ navigation, route }:any) => {
-    const [contact, onChangeContact] = useState("");
-    const [delivery, onChangeDelivery] = useState(false);
-    const [description, onChangeDescription] = useState("");
-    const [name, onChangeName] = useState("");
+    const [address, onChangeAddress] = useState('');
+    const [contact, onChangeContact] = useState('');
+    const [delivery, onChangeDelivery] = useState('');
+    const [description, onChangeDescription] = useState('');
+    const [name, onChangeName] = useState('');
+    const [schedule, onChangeSchedule] = useState('');
+    const [social, onChangeSocial] = useState('');
+    const [webpage, onChangeWebpage] = useState('');
 
     const store = {
-        contact: contact,
-        delivery: delivery,
+        name: name,
         description: description,
-        latitude: route.params.ubicacion.latitude,
+        delivery: delivery,
+        address: address,
+        schedule: schedule,
+        social: social,
+        contact: contact,
+        webpage: webpage,
+        coords: {
+            latitude: route.params.ubicacion.latitude,
+            longitude: route.params.ubicacion.longitude,
+        },
         likes: 0,
         dislikes: 0,
-        longitude: route.params.ubicacion.longitude,
-        name: name,
         submitter: auth.currentUser?.email ?? 'anonymous'
     }
 
@@ -36,21 +46,45 @@ export const SaveStoreScreen = ({ navigation, route }:any) => {
             />
             <TextInput
                 style={styles.input}
-                onChangeText={onChangeContact}
-                value={contact}
-                placeholder="Contacto (FB, IG, Teléfono)."
-            />
-            <CheckBox
-                disabled={false}
-                value={delivery}
-                onValueChange={() => onChangeDelivery(!delivery)}
-            />
-            <Text>¿Tiene delivery?</Text>
-            <TextInput
-                style={styles.input}
                 onChangeText={onChangeDescription}
                 value={description}
                 placeholder="¿Qué ofrece? (Información adicional)"
+            />
+            <TextInput
+                style={styles.input}
+                onChangeText={onChangeDelivery}
+                value={delivery}
+                placeholder="¿Tiene delivery?"
+            />
+            <TextInput
+                style={styles.input}
+                onChangeText={onChangeAddress}
+                value={address}
+                placeholder="Dirección."
+            />
+            <TextInput
+                style={styles.input}
+                onChangeText={onChangeSchedule}
+                value={schedule}
+                placeholder="Horarios de atención."
+            />
+            <TextInput
+                style={styles.input}
+                onChangeText={onChangeSocial}
+                value={social}
+                placeholder="Redes sociales (FB: IG: Twitter: ...)."
+            />
+            <TextInput
+                style={styles.input}
+                onChangeText={onChangeContact}
+                value={contact}
+                placeholder="Contacto (Teléfono, correo)."
+            />
+            <TextInput
+                style={styles.input}
+                onChangeText={onChangeWebpage}
+                value={webpage}
+                placeholder="Sitio web."
             />
             <Button
                 onPress={() => {
