@@ -31,8 +31,8 @@ export const SignUpComponent = () => {
             // TODO: manejar el error
             setLoading(false);
             setError({
-                code: '404',
-                message: 'no existe usuario',
+                code: '500',
+                message: 'Error interno de servidor.',
             })
         }
     }

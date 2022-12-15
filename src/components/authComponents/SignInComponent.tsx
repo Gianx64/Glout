@@ -4,11 +4,17 @@ import { Button, TextInput, View, StyleSheet } from 'react-native'
 import { signIn } from '../../firebase/auth';
 import { auth } from '../../firebase/firebaseConfig';
 
+interface IError {
+    code: string;
+    message: string;
+}
+
 export const SignInComponent = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [loading, setLoading] = useState(false);
     const [correctData, setCorrectData] = useState(false);
+    const [error, setError] = useState<IError | undefined>(undefined);
 
 	const navigation = useNavigation();
 
@@ -19,6 +25,11 @@ export const SignInComponent = () => {
             setLoading(false);
         } else {
             setLoading(false);
+            setError({
+                code: '404',
+                message: 'No existe usuario.',
+            })
+            alert(error?.message)
         }
     }
 
