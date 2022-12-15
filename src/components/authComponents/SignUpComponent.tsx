@@ -11,6 +11,8 @@ interface IError {
 }
 
 export const SignUpComponent = () => {
+    const [nombre, setName] = useState('');
+    const [surname, setaSurname] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [loading, setLoading] = useState(false);
@@ -23,7 +25,7 @@ export const SignUpComponent = () => {
         const user = await signUp(email, password);
         if (user) {
             // TODO: guardar datos del usuario en el storage(context, reducer, redux, etc...)
-            writeUserData();
+            writeUserData(nombre, surname);
             setLoading(false);
         } else {
             // TODO: manejar el error
@@ -70,6 +72,20 @@ export const SignUpComponent = () => {
 
     return (
         <View style={styles.container}>
+            <TextInput
+                placeholder="Ingrese su nombre"
+                onChangeText={setName}
+                value={nombre}
+                style={styles.input}
+                secureTextEntry
+            />
+            <TextInput
+                placeholder="Ingrese su apellido"
+                onChangeText={setaSurname}
+                value={surname}
+                style={styles.input}
+                secureTextEntry
+            />
             <TextInput
                 placeholder="Ingrese Email"
                 onChangeText={setEmail}
