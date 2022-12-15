@@ -2,10 +2,25 @@ import React from 'react'
 import { StyleSheet, Text, View, SafeAreaView} from 'react-native'
 import { ScrollView} from 'react-native-gesture-handler';
 import { BlackButton, LikeButton, DislikeButton} from '../components/buttonComponents/buttons';
+import { writeUserDisiked, writeUserLiked, writeUserSaved } from '../firebase/database';
 
 
 export const ShowStoreScreen = ({ navigator, route }:any) => {
-    console.log(route.params);
+    //console.log(route.params);
+    
+    //TODO: evitar que se inicie un ciclo infinito
+    const handlerLike = (store:string) => {
+        writeUserLiked(store)
+    }
+    //TODO: evitar que se inicie un ciclo infinito
+    const handlerDislike = (store:string) => {
+        writeUserDisiked(store)
+    }
+    //TODO: evitar que se inicie un ciclo infinito
+    const handlerSave = (store:string) => {
+        writeUserSaved(store)
+    }
+
     return (
         <SafeAreaView style={styles.container}>
             <ScrollView>
@@ -16,9 +31,9 @@ export const ShowStoreScreen = ({ navigator, route }:any) => {
             </ScrollView>
             <View style={{...styles.bottom}}>
                 <Text style={{...styles.coment}}>Likes: # / Dislikes: #</Text>
-                <BlackButton onPress = {() => alert('Boton presionado')} text='Guardar'/>
-                <LikeButton onPress = {() => alert('Boton presionado')} text='Me gusta' /> 
-                <DislikeButton onPress = {() => alert('Boton presionado')} text='No me gusta' />
+                <BlackButton onPress = {() => handlerSave(route.params.store.name_sucursal)} text='Guardar'/>
+                <LikeButton onPress = {() => handlerLike(route.params.store.name_sucursal)} text='Me gusta' /> 
+                <DislikeButton onPress = {() => handlerDislike(route.params.store.name_sucursal)} text='No me gusta' />
             </View>
         </SafeAreaView>
     )

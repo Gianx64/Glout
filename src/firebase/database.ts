@@ -36,28 +36,62 @@ const readStoresData = () => {
 };
 
 const writeUserData = (name: string, surname: string) => {
-  const storesRef = ref(database, "user/"+auth.currentUser?.uid);
+  const userRef = ref(database, "user/"+auth.currentUser?.uid);
   const userData = {
     name: name,
     surname: surname,
-    likes: {},
-    dislikes: {},
-    favorites: {}
+    likes: ['default'],
+    dislikes: ['default'],
+    saved: ['default']
   }
-  return set(storesRef, userData);
+  return set(userRef, userData);
 };
 
-const readUserData = () => {
-  onValue(ref(database, "user"+auth.currentUser?.uid), (snapshot) => {
+const readUserData = async () => {
+  const userRef = ref(database, "user/"+auth.currentUser?.uid);
+  onValue(userRef, (snapshot) => {
     const data = snapshot.val();
     console.log(data);
     return data;
   });
+  return {
+    likes: ['error'],
+    dislikes: ['error'],
+    saved: ['error']
+  }
 };
 
-/*const writeUserLiked = (store:string) => {
-  const storesRef = ref(database, "user/"+auth.currentUser?.email);
-  return update(storesRef, store);
-};*/
+const writeUserLiked = async (store:string) => {
+  const userRef = ref(database, "user/"+auth.currentUser?.uid);
+  onValue(userRef, (snapshot) => {
+    const data = snapshot.val();
+    console.log(data);
+    if (data.likes[0] !== "error")
+      data.likes.push(store)
+      return update(userRef, data);
+  });
+};
 
-export { readDataBase, writeStoreData, readStoresData, writeUserData, readUserData };
+const writeUserDisiked = async (store:string) => {
+  const userRef = ref(database, "user/"+auth.currentUser?.uid);
+  onValue(userRef, (snapshot) => {
+    const data = snapshot.val();
+    console.log(data);
+    if (data.dislikes[0] !== "error")
+      data.dislikes.push(store)
+      return update(userRef, data);
+  });
+};
+
+const writeUserSaved = async (store:string) => {
+  const userRef = ref(database, "user/"+auth.currentUser?.uid);
+  onValue(userRef, (snapshot) => {
+    const data = snapshot.val();
+    console.log(data);
+    if (data.saved[0] !== "error")
+      data.saved.push(store)
+      return update(userRef, data);
+  });
+};
+
+export { readDataBase, writeStoreData, readStoresData, writeUserData, readUserData, writeUserLiked, writeUserDisiked, writeUserSaved };
