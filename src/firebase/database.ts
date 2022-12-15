@@ -35,9 +35,11 @@ const readStoresData = () => {
   });
 };
 
-const writeUserData = () => {
+const writeUserData = (name: string, surname: string) => {
   const storesRef = ref(database, "user/"+auth.currentUser?.uid);
   const userData = {
+    name: name,
+    surname: surname,
     likes: {},
     dislikes: {},
     favorites: {}
