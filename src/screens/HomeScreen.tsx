@@ -2,6 +2,7 @@ import { StackActions, useNavigation } from '@react-navigation/native';
 import React from 'react'
 import { Button, StyleSheet, View, Image, Text } from 'react-native'
 import { ReadDataComponent } from '../components/databaseComponents/ReadDataComponent';
+import styles from '../styles/Styles';
 
 
 export const HomeScreen = () => {
@@ -31,32 +32,3 @@ export const HomeScreen = () => {
 }
 
 export default HomeScreen
-
-const styles = StyleSheet.create({
-    container: {
-        backgroundColor: '#d6f9f8',
-        flex: 1,
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        width: '100%',
-    },
-
-    data: {
-        backgroundColor: '#d6f9f8',
-        flex: 1,
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        width: '100%',
-    },
-
-    text: {
-        backgroundColor: '#d6f9f8',
-        flex: 1,
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        width: '100%',
-    },
-});

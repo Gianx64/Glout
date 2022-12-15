@@ -1,5 +1,6 @@
 import React from 'react'
 import { View, Text, TouchableOpacity,StyleSheet} from 'react-native'
+import styles from '../../styles/Styles';
 
 
 export function BlackButton(props){
@@ -78,36 +79,4 @@ export function DislikeButton(props){
 
 }
 
-const styles = StyleSheet.create({
-    button: {
-        width:'80%',
-        paddingVertical: 10,
-        marginVertical: 15,
-        textAlign:'center',
-        alignSelf:'center',
-        borderRadius: 20,
-    },
 
-    buttonText:{
-        textAlign:'center',
-    },
-
-    bDer:{
-        paddingVertical: 10,
-        marginVertical:10,
-        textAlign:'center',
-        borderRadius: 30,
-        right: 70,
-    },
-
-    bIzq:{
-        paddingVertical: 10,
-        marginVertical:10,
-        textAlign:'center',
-        borderRadius: 30,
-        left: 70,
-        top: -59,
-    },
-
-
-})

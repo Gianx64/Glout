@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { StyleSheet, View, Text, Button, Image } from 'react-native'
 import { signOut } from '../firebase/auth'
 import { auth } from '../firebase/firebaseConfig' 
+import styles from '../styles/Styles';
 
 
 const UserScreen = () => {
@@ -29,7 +30,7 @@ const UserScreen = () => {
 	}, [])
     
     return (
-        <View style={styles.container}>
+        <View style={styles.containerUserScreen}>
              <Image
                 source={require('../../assets/usuario.png')}
                 style={styles.img}
@@ -47,49 +48,3 @@ const UserScreen = () => {
 
 export default UserScreen
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        margin: 15,
-    },
-    button: {
-        backgroundColor: '#0782F9',
-        width: '75%',
-        padding: 15,
-        borderRadius: 10,
-        alignItems: 'center',
-        marginTop: 40
-    },
-    buttonText: {
-        color: 'white',
-        fontWeight: '700',
-        fontSize: 10
-    },
-    nombre:{
-        marginVertical:10,
-        fontSize: 17,
-        justifyContent: 'center',
-        width: '100%',
-        padding: 10,
-        top: -150,
-    },
-    correo:{
-        marginVertical:10,
-        fontSize: 17,
-        justifyContent: 'center',
-        width: '100%',
-        padding: 10,
-        top: -150,
-    },
-    img:{
-        width: 150, 
-        height: 150,
-        paddingVertical: 10,
-        marginVertical:10,
-        textAlign:'center',
-        borderRadius: 30,
-        top: -150,
-    },
-})
