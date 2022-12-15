@@ -1,4 +1,4 @@
-import { useNavigation } from '@react-navigation/native';
+import { StackActions, useNavigation } from '@react-navigation/native';
 import React from 'react'
 import { Button, StyleSheet, View, Image, Text } from 'react-native'
 import { ReadDataComponent } from '../components/databaseComponents/ReadDataComponent';
@@ -18,8 +18,8 @@ export const HomeScreen = () => {
          <View style={styles.data}>
              {/* <WriteDataComponent />*/}
              <ReadDataComponent />
-             <Button title={'Ir a perfil'} onPress={() => {navigation.navigate('User Screen')}} />
-             <Button title={'Ir al mapa'} onPress={() => {navigation.navigate('Map Screen')}} />
+             <Button title={'Ir a perfil'} onPress={() => {navigation.dispatch(StackActions.push('User Screen'))}} />
+             <Button title={'Ir al mapa'} onPress={() => {navigation.dispatch(StackActions.push('Map Screen'))}} />
          </View>
 
          <View style={styles.text}>

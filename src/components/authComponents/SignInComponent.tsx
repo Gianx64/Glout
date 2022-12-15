@@ -71,7 +71,7 @@ export const SignInComponent = () => {
             </View>
             <Button
 				title={'Registrarse'}
-				onPress={() => {navigation.navigate('SignUp Screen')}}
+				onPress={() => {navigation.dispatch(StackActions.push('SignUp Screen'))}}
 			/>
         </View>
     )

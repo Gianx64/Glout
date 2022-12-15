@@ -8,7 +8,7 @@ import { FAB } from 'react-native-paper';
 import { data } from './data';
 /* import { FAB } from "../../FAB"; */
 import { mapstyle } from './MapsStyle';
-import { useNavigation } from '@react-navigation/native';
+import { StackActions, useNavigation } from '@react-navigation/native';
 
 type store = {
   contact: string,
@@ -67,7 +67,7 @@ export const MapComponent = () => {
                     coordinate={ubicacion}
                     onDragEnd={(direction) => setUbicacion(direction.nativeEvent.coordinate)}
                 >
-                    <Callout onPress= {() => {navigation.navigate('SaveStoreScreen', { ubicacion })}}>
+                    <Callout onPress= {() => {navigation.dispatch(StackActions.push('SaveStoreScreen', { ubicacion }))}}>
                         <TouchableHighlight>
                             <View>
                                 <Text>Ingresar tienda</Text>
@@ -81,7 +81,7 @@ export const MapComponent = () => {
                             pinColor='blue'
                             coordinate={store.coords}
                         >
-                            <Callout onPress= {() => {navigation.navigate('ShowStoreScreen', { store })}}>
+                            <Callout onPress= {() => {navigation.dispatch(StackActions.push('ShowStoreScreen', { store }))}}>
                                 <TouchableHighlight>
                                     <View>
                                         <Text>Tienda: {store.name_sucursal}</Text>
@@ -98,7 +98,7 @@ export const MapComponent = () => {
         </View>
     )
 }
-/*esta wea del FAB es un boton, pensaba que podriamos poner la lista de tiendas ahi, pero no funciona ni declarando manual, se ve un cubo verde xd */
+/*FAB es un boton, pensaba que podriamos poner la lista de tiendas ahi, pero no funciona ni declarando manual, se ve un cubo verde xd */
 /*En el espacio del return queria poner que mostrara las descripciones de las tiendas, pero no funciona, lo mismo si pongo el boton ahi, me sale jsx expressions must have one parent element */
 
 const styles = StyleSheet.create({

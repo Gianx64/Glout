@@ -16,8 +16,13 @@ const UserScreen = () => {
     }
     useEffect(() => {
 		const unsubscribe = auth.onAuthStateChanged(user => {
-			if (user) {
-			// IMPLEMENTAR NAVEGACION	
+			if (user === null) {
+                navigation.dispatch(StackActions.popToTop());
+                navigation.dispatch({
+                    ...StackActions.replace('SignIn Screen'),
+                    source: undefined,
+                    target: navigation.getState().key,
+                  });
 			}
 		})
         return unsubscribe;
@@ -32,9 +37,9 @@ const UserScreen = () => {
             <Text style={styles.nombre}>Nombre: </Text>
             <Text style={styles.nombre}>Apellido: </Text>
             <Text style={styles.correo}>Correo electrónico: {auth.currentUser?.email}</Text>
-            <Button title={loading ?'Saliendo...': 'Salir'}
-				onPress={handlerSubmit
-				}
+            <Button title={loading ? 'Saliendo...' : 'Salir'}
+				onPress={handlerSubmit}
+                disabled={loading}
 			/>
         </View>
     )
