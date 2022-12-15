@@ -2,9 +2,7 @@ import { StackActions, useNavigation } from '@react-navigation/native'
 import React, { useEffect, useState } from 'react'
 import { StyleSheet, View, Text, Button, TextInput } from 'react-native'
 import { signOut } from '../firebase/auth'
-import { auth } from '../firebase/firebaseConfig'
-
-
+import { auth } from '../firebase/firebaseConfig' 
 
 
 const UserScreen = () => {
@@ -27,6 +25,8 @@ const UserScreen = () => {
     
     return (
         <View style={styles.container}>
+            <Text>Nombre: </Text>
+            <Text>Apellido: </Text>
             <Text>Correo electrónico: {auth.currentUser?.email}</Text>
             <Button title={loading ?'Saliendo...': 'Salir'}
 				onPress={handlerSubmit
