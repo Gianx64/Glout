@@ -25,9 +25,13 @@ export const ShowStoreScreen = ({ navigator, route }:any) => {
         <SafeAreaView style={styles.container}>
             <ScrollView>
                 <Text style={{...styles.titulo}}>{route.params.store.name_sucursal ?? 'No se sabe'}</Text>
-                <Text style={{...styles.content}}>Capacidad de delivery: {route.params.store.delivery ? 'Si' : 'No'}</Text>
-                <Text style={{...styles.content}}>Contacto: {route.params.store.contact ?? 'No se sabe'}</Text>
                 <Text style={{...styles.content}}>Descripción: {route.params.store.description ?? 'No se sabe'}</Text>
+                <Text style={{...styles.content}}>Capacidad y Detalles de Delivery si aplica: {route.params.store.delivery ?? 'No aplica'}</Text>
+                <Text style={{...styles.content}}>Dirección: {route.params.store.direccion ?? 'No se sabe'}</Text>
+                <Text style={{...styles.content}}>Horario: {route.params.store.horario ?? 'No se sabe'}</Text>
+                <Text style={{...styles.content}}>Redes sociales: {route.params.store.social ?? 'No se sabe'}</Text>
+                <Text style={{...styles.content}}>Contacto: {route.params.store.contact ?? 'No se sabe'}</Text>
+                <Text style={{...styles.content}}>Página Web: {route.params.store.webpage ?? 'No se sabe'}</Text>
             </ScrollView>
             <View style={{...styles.bottom}}>
                 <Text style={{...styles.coment}}>Likes: # / Dislikes: #</Text>
