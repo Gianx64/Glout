@@ -1,24 +1,26 @@
 import React, { useEffect, useState } from 'react';
 import * as Location from 'expo-location';
 import MapView, { Callout, Marker } from 'react-native-maps';
-import { StyleSheet, Text, View } from 'react-native';
-import { TouchableHighlight } from 'react-native-gesture-handler';
+import { StyleSheet, Text } from 'react-native';
 import { readStoresData } from '../../firebase/database';
-import { FAB } from 'react-native-paper';
-import { data } from './data';
-/* import { FAB } from "../../FAB"; */
-import { mapstyle } from './MapsStyle';
 import { StackActions, useNavigation } from '@react-navigation/native';
+import { data } from './data';
+import { FAB } from 'react-native-paper';
 
 type store = {
-  contact: string,
-  delivery: boolean,
-  description: string,
-  latitude: number,
-  likes: number,
-  longitude: number,
-  name: string,
-  submitter: string
+    name: string,
+    address: string,
+    contact: string,
+    coords: {latitude: number, longitude: number} |
+    {latitude: number, longitude: number, latitudeDelta: number, longitudeDelta: number},
+    delivery: string,
+    description: string,
+    submitter: string,
+    webpage: string,
+    schedule: string,
+    social: string,
+    likes: number,
+    dislikes: number
 }
 
 export const MapComponent = () => {
@@ -34,7 +36,7 @@ export const MapComponent = () => {
 	useEffect(() => {
 		getLocationPermission();
         //setStores(readStoresData());
-        console.log(stores);
+        //console.log(stores);
 	}, [])
 
 	async function getLocationPermission() {
@@ -52,54 +54,39 @@ export const MapComponent = () => {
 	}
 
     return (
-        <View style={styles.container}>
-            <MapView style={styles.map}
-            provider={'google'}
-            showsUserLocation
-            showsMyLocationButton
-            initialRegion={{
-                latitude: ubicacion.latitude,
-                longitude: ubicacion.longitude,
-                latitudeDelta: 0.5,
-                longitudeDelta: 0.2,
-            }}>
-                <Marker draggable
-                    coordinate={ubicacion}
-                    onDragEnd={(direction) => setUbicacion(direction.nativeEvent.coordinate)}
-                >
-                    <Callout onPress= {() => {navigation.dispatch(StackActions.push('SaveStoreScreen', { ubicacion }))}}>
-                        <TouchableHighlight>
-                            <View>
-                                <Text>Ingresar tienda</Text>
-                            </View>
-                        </TouchableHighlight>
-                    </Callout>
-                </Marker>
-                {data.map((store, i) => {
-                    return (
-                        <Marker
-                            pinColor='blue'
-                            coordinate={store.coords}
-                        >
-                            <Callout onPress= {() => {navigation.dispatch(StackActions.push('ShowStoreScreen', { store }))}}>
-                                <TouchableHighlight>
-                                    <View>
-                                        <Text>Tienda: {store.name_sucursal}</Text>
-                                    </View>
-                                </TouchableHighlight>
-                            </Callout>
-                        </Marker>
-                    ) 
-                })}
-			</MapView>
-            <FAB
-                style={{mapstyle}}
-                icon="plus" />
-        </View>
+        <MapView style={styles.map}
+        provider={'google'}
+        showsUserLocation
+        showsMyLocationButton
+        initialRegion={{
+            latitude: ubicacion.latitude,
+            longitude: ubicacion.longitude,
+            latitudeDelta: 0.5,
+            longitudeDelta: 0.2,
+        }}>
+            <Marker draggable
+                coordinate={ubicacion}
+                onDragEnd={(direction) => setUbicacion(direction.nativeEvent.coordinate)}
+            >
+                <Callout onPress= {() => {navigation.dispatch(StackActions.push('SaveStoreScreen', { ubicacion }))}}>
+                    <Text>Ingresar tienda</Text>
+                </Callout>
+            </Marker>
+            {data.map((store, id) => {
+                return (
+                    <Marker
+                        pinColor='blue'
+                        coordinate={store.coords}
+                    >
+                        <Callout onPress= {() => {navigation.dispatch(StackActions.push('ShowStoreScreen', { store }))}}>
+                            <Text>Tienda: {store.name_sucursal}</Text>
+                        </Callout>
+                    </Marker>
+                ) 
+            })}
+		</MapView>
     )
 }
-/*FAB es un boton, pensaba que podriamos poner la lista de tiendas ahi, pero no funciona ni declarando manual, se ve un cubo verde xd */
-/*En el espacio del return queria poner que mostrara las descripciones de las tiendas, pero no funciona, lo mismo si pongo el boton ahi, me sale jsx expressions must have one parent element */
 
 const styles = StyleSheet.create({
     container: {
