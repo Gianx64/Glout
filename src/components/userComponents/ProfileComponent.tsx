@@ -73,10 +73,10 @@ export const ProfileComponent = () => {
 
     return (
         <View style={styles.containerUserScreen}>
-             <Image
-                source={require('../../assets/usuario.png')}
-                style={styles.img}
-             />
+            <Image
+               source={require('../../../assets/usuario.png')}
+               style={styles.img}
+            />
             <Text style={styles.nombre}>Nombre: {userData.name}</Text>
             <Text style={styles.nombre}>Apellido: {userData.surname}</Text>
             <Text style={styles.nombre}>Correo electrónico: {auth.currentUser?.email}</Text>
