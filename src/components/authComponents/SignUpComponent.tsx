@@ -85,19 +85,9 @@ export const SignUpComponent = () => {
 		return unsubscribe;
 	}, [])
 
-    if (error) {
-        return (
-            <View>
-                <Text>
-                    {error.message}
-                </Text>
-            </View>
-        )
-    }
-
     return (
         <View style={styles.container}>
-            {error ? <Text>error!.message</Text> : ''}
+            {error ? <Text>{error!.message}</Text> : ''}
             <TextInput
                 placeholder="Ingrese su nombre"
                 onChangeText={setName}
