@@ -152,20 +152,12 @@ const styles = StyleSheet.create({
         padding: 15,
     },
     nombre:{
-        marginVertical:10,
+        marginVertical:5,
         fontSize: 17,
         justifyContent: 'center',
         width: '100%',
-        padding: 10,
-        top: -150,
-    },
-    correo:{
-        marginVertical:10,
-        fontSize: 17,
-        justifyContent: 'center',
-        width: '100%',
-        padding: 10,
-        top: -150,
+        padding: 5,
+        top: -50,
     },
     img:{
         width: 150, 
@@ -174,7 +166,7 @@ const styles = StyleSheet.create({
         marginVertical:10,
         textAlign:'center',
         borderRadius: 30,
-        top: -150,
+        top: -100,
     },
 
     //MapComponent

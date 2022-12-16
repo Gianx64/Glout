@@ -23,28 +23,37 @@ export const SignUpComponent = () => {
 
     const handlerSubmit = async () => {
         setLoading(true);
-        const successSignUp = await signUp(email, password);
-        console.log(successSignUp.toString())
-        if (successSignUp === true) {
-            writeUserData(name, surname);
-            setLoading(false);
-        } else {
-            if (successSignUp.toString() === 'FirebaseError: Firebase: Error (auth/invalid-email).')
+        if (password.length < 6) {  
             setError({
                 code: '400',
-                message: 'Correo inválido.',
-            })
-            else if (successSignUp.toString() === 'FirebaseError: Firebase: Error (auth/network-request-failed).')
-            setError({
-                code: '400',
-                message: 'Error de conexión.',
-            })
-            else setError({
-                code: '400',
-                message: successSignUp.toString(),
+                message: 'La contraseña debe ser de por lo menos 6 caracteres.',
             })
             setLoading(false);
-            alert(error?.message)
+            //alert(error?.message)
+        }
+        else {
+            const successSignUp = await signUp(email, password);
+            if (successSignUp === true) {
+                await inicializar();
+                setLoading(false);
+            } else {
+                if (successSignUp.toString() === 'FirebaseError: Firebase: Error (auth/invalid-email).')
+                setError({
+                    code: '400',
+                    message: 'Correo inválido.',
+                })
+                else if (successSignUp.toString() === 'FirebaseError: Firebase: Error (auth/network-request-failed).')
+                setError({
+                    code: '400',
+                    message: 'Error de conexión.',
+                })
+                else setError({
+                    code: '400',
+                    message: successSignUp.toString(),
+                })
+                setLoading(false);
+                //alert(error?.message)
+            }
         }
     }
 
@@ -57,6 +66,11 @@ export const SignUpComponent = () => {
         }
     }, [email, password])
 
+    async function inicializar() {
+        await writeUserData(name, surname);
+        console.log('Datos escritos exitosamente.')
+        return true;
+    }
 	useEffect(() => {
 		const unsubscribe = auth.onAuthStateChanged(user => {
 			if (user) {
@@ -83,6 +97,7 @@ export const SignUpComponent = () => {
 
     return (
         <View style={styles.container}>
+            {error ? <Text>error!.message</Text> : ''}
             <TextInput
                 placeholder="Ingrese su nombre"
                 onChangeText={setName}

@@ -61,7 +61,13 @@ const UserScreen = () => {
 
     if (loading) {
         return (
-            <Text>Cargando...</Text>
+            <View style={styles.containerUserScreen}>
+                <Text>Cargando...</Text>
+                <Button title={signingOut ? 'Cerrando Sesión...' : 'Cerrar Sesión'}
+                    onPress={handlerSubmit}
+                    disabled={loading}
+                />
+            </View>
         )
     }
 
@@ -73,13 +79,14 @@ const UserScreen = () => {
              />
             <Text style={styles.nombre}>Nombre: {userData.name}</Text>
             <Text style={styles.nombre}>Apellido: {userData.surname}</Text>
-            <Text style={styles.correo}>Correo electrónico: {auth.currentUser?.email}</Text>
-            <View style={styles.submitButton}>
-                <Button title={signingOut ? 'Cerrando Sesión...' : 'Cerrar Sesión'}
-                    onPress={handlerSubmit}
-                    disabled={loading}
-                />
-            </View>
+            <Text style={styles.nombre}>Correo electrónico: {auth.currentUser?.email}</Text>
+            <Text style={styles.nombre}>Me Gusta: {userData.likes}</Text>
+            <Text style={styles.nombre}>No Me Gusta: {userData.dislikes}</Text>
+            <Text style={styles.nombre}>Guardados: {userData.saved}</Text>
+            <Button title={signingOut ? 'Cerrando Sesión...' : 'Cerrar Sesión'}
+                onPress={handlerSubmit}
+                disabled={loading}
+            />
         </View>
     )
 }
