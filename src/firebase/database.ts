@@ -63,8 +63,16 @@ const writeUserLiked = async (store:string) => {
   const userRef = ref(database, "user/"+auth.currentUser?.uid+'/likes');
   get(userRef).then((snapshot) => {
     const data = snapshot.val();
-    data.push(store)
+    data.push(store);
     return set(userRef, data);
+  });
+};
+
+const likedStore = async (store:store) => {
+  const storesRef = ref(database, "stores/"+store.id.toString()+'/likes');
+  get(storesRef).then((snapshot) => {
+    const data = snapshot.val();
+    return set(storesRef, data+1);
   });
 };
 
@@ -72,8 +80,16 @@ const writeUserDisiked = async (store:string) => {
   const userRef = ref(database, "user/"+auth.currentUser?.uid+'/dislikes');
   get(userRef).then((snapshot) => {
     const data = snapshot.val();
-    data.push(store)
+    data.push(store);
     return set(userRef, data);
+  });
+};
+
+const dislikedStore = async (store:store) => {
+  const storesRef = ref(database, "stores/"+store.id.toString()+'/dislikes');
+  get(storesRef).then((snapshot) => {
+    const data = snapshot.val();
+    return set(storesRef, data+1);
   });
 };
 
@@ -82,9 +98,9 @@ const writeUserSaved = async (store:string) => {
   get(userRef).then((snapshot) => {
     const data = snapshot.val();
     if (data[0] !== "error")
-      data.push(store)
+      data.push(store);
       return set(userRef, data);
   });
 };
 
-export { writeStoreData, readStoresData, writeUserData, readUserData, writeUserLiked, writeUserDisiked, writeUserSaved };
+export { writeStoreData, readStoresData, writeUserData, readUserData, writeUserLiked, likedStore, writeUserDisiked, dislikedStore, writeUserSaved };
