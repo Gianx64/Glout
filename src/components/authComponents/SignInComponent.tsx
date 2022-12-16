@@ -22,14 +22,34 @@ export const SignInComponent = () => {
     const handlerSubmit = async () => {
         setLoading(true);
         const successSignIn = await signIn(email, password);
-        if (successSignIn) {
+        if (successSignIn === true) {
             setLoading(false);
         } else {
-            setLoading(false);
+            if (successSignIn.toString() === 'FirebaseError: Firebase: Error (auth/wrong-password).')
             setError({
-                code: '404',
-                message: 'No existe usuario.',
+                code: '400',
+                message: 'Contraseña incorrecta.',
             })
+            else if (successSignIn.toString() === 'FirebaseError: Firebase: Error (auth/invalid-email).')
+            setError({
+                code: '400',
+                message: 'Correo inválido.',
+            })
+            else if (successSignIn.toString() === 'FirebaseError: Firebase: Error (auth/network-request-failed).')
+            setError({
+                code: '400',
+                message: 'Error de conexión.',
+            })
+            else if (successSignIn.toString() === 'FirebaseError: Firebase: Access to this account has been temporarily disabled due to many failed login attempts. You can immediately restore it by resetting your password or you can try again later. (auth/too-many-requests).')
+            setError({
+                code: '400',
+                message: 'El acceso a esta cuenta ha sido deshabilitada temporalmente debido a muchos intentos fallidos de ingreso. Por favor, intente más tarde.',
+            })
+            else setError({
+                code: '400',
+                message: successSignIn.toString(),
+            })
+            setLoading(false);
             alert(error?.message)
         }
     }

@@ -5,19 +5,39 @@ import { signOut } from '../firebase/auth'
 import { auth } from '../firebase/firebaseConfig' 
 import styles from '../styles/Styles';
 
+interface IError {
+    code: string;
+    message: string;
+}
 
 const UserScreen = () => {
     const [loading, setLoading] = useState(false);
+    const [error, setError] = useState<IError | undefined>(undefined);
 	const navigation = useNavigation();
+
     const handlerSubmit = async () => {
         setLoading(true);
-        const successSignIn = signOut();
-        setLoading(false);
-    
+        const successSignOut = await signOut();
+        if (successSignOut !== true) {
+            console.log(successSignOut.toString());
+            if (successSignOut.toString() === 'FirebaseError: Firebase: Error (auth/network-request-failed).')
+            setError({
+                code: '400',
+                message: 'Error de conexión.',
+            })
+            else setError({
+                code: '400',
+                message: successSignOut.toString(),
+            })
+            setLoading(false);
+            alert(error?.message)
+        }
     }
+
     useEffect(() => {
 		const unsubscribe = auth.onAuthStateChanged(user => {
 			if (user === null) {
+                setLoading(false);
                 navigation.dispatch(StackActions.popToTop());
                 navigation.dispatch({
                     ...StackActions.replace('SignIn Screen'),
@@ -47,4 +67,3 @@ const UserScreen = () => {
 }
 
 export default UserScreen
-

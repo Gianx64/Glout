@@ -6,7 +6,6 @@ import { writeUserData } from '../../firebase/database';
 import { auth } from '../../firebase/firebaseConfig';
 import styles from '../../styles/Styles';
 
-
 interface IError {
     code: string;
     message: string;
@@ -24,18 +23,28 @@ export const SignUpComponent = () => {
 
     const handlerSubmit = async () => {
         setLoading(true);
-        const user = await signUp(email, password);
-        if (user) {
-            // TODO: guardar datos del usuario en el storage(context, reducer, redux, etc...)
+        const successSignUp = await signUp(email, password);
+        console.log(successSignUp.toString())
+        if (successSignUp === true) {
             writeUserData(name, surname);
             setLoading(false);
         } else {
-            // TODO: manejar el error
-            setLoading(false);
+            if (successSignUp.toString() === 'FirebaseError: Firebase: Error (auth/invalid-email).')
             setError({
-                code: '500',
-                message: 'Error interno de servidor.',
+                code: '400',
+                message: 'Correo inválido.',
             })
+            else if (successSignUp.toString() === 'FirebaseError: Firebase: Error (auth/network-request-failed).')
+            setError({
+                code: '400',
+                message: 'Error de conexión.',
+            })
+            else setError({
+                code: '400',
+                message: successSignUp.toString(),
+            })
+            setLoading(false);
+            alert(error?.message)
         }
     }
 
