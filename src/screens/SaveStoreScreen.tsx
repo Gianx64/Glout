@@ -28,6 +28,7 @@ export const SaveStoreScreen = ({ navigation, route }:any) => {
             latitude: route.params.ubicacion.latitude,
             longitude: route.params.ubicacion.longitude,
         },
+        id: 0,
         likes: 0,
         dislikes: 0,
         submitter: auth.currentUser?.email ?? 'anonymous'

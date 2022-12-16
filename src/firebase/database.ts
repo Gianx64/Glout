@@ -2,6 +2,7 @@ import { auth, database } from "./firebaseConfig";
 import { ref, set, get, onValue, update } from "firebase/database";
 
 type store = {
+  id: number;
   name_sucursal: string,
   address: string,
   contact: string,
@@ -17,16 +18,18 @@ type store = {
   dislikes: number
 }
 
-const writeStoreData = (store:store) => {
+const writeStoreData = async (store:store) => {
   const storesRef = ref(database, "stores");
   get(storesRef).then((snapshot) => {
     const data = snapshot.val();
-    data.push(store)
-    return update(storesRef, data);
+    store.id = data.length;
+    console.log(store.id);
+    data.push(store);
+    return set(storesRef, data);
   });
 };
 
-const readStoresData = () => {
+const readStoresData = async () => {
   const storesRef = ref(database, "stores");
   onValue(storesRef, (snapshot) => {
     const data = snapshot.val();
@@ -35,7 +38,7 @@ const readStoresData = () => {
   });
 };
 
-const writeUserData = (name: string, surname: string) => {
+const writeUserData = async (name: string, surname: string) => {
   const userRef = ref(database, "user/"+auth.currentUser?.uid);
   const userData = {
     name: name,
@@ -60,9 +63,8 @@ const writeUserLiked = async (store:string) => {
   const userRef = ref(database, "user/"+auth.currentUser?.uid+'/likes');
   get(userRef).then((snapshot) => {
     const data = snapshot.val();
-    if (data[0] !== "error")
-      data.push(store)
-      return update(userRef, data);
+    data.push(store)
+    return set(userRef, data);
   });
 };
 
@@ -71,7 +73,7 @@ const writeUserDisiked = async (store:string) => {
   get(userRef).then((snapshot) => {
     const data = snapshot.val();
     data.push(store)
-    return update(userRef, data);
+    return set(userRef, data);
   });
 };
 
@@ -81,7 +83,7 @@ const writeUserSaved = async (store:string) => {
     const data = snapshot.val();
     if (data[0] !== "error")
       data.push(store)
-      return update(userRef, data);
+      return set(userRef, data);
   });
 };
 
