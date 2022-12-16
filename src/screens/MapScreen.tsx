@@ -1,8 +1,7 @@
 import React from 'react';
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Text, TouchableOpacity, View } from 'react-native';
 import { MapComponent } from '../components/mapComponents/MapComponent';
 import { Callout } from 'react-native-maps';
-import { FAB } from 'react-native-paper';
 import styles from '../styles/Styles';
 
 

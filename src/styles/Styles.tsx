@@ -1,4 +1,3 @@
-import React from 'react'
 import { StyleSheet } from 'react-native'
 
 const styles = StyleSheet.create({
@@ -25,20 +24,12 @@ const styles = StyleSheet.create({
         flex: 1,
         display: 'flex',
         alignItems: 'center',
-        justifyContent: 'center',
-        width: '100%',
+        justifyContent: 'center'
     },
 
     //Signs
-    botonSigInComponent: {
-        marginTop: 110,
-        marginBottom: 84,
-        width: '50%',
-    },
-
-    botonSigUpComponent: {
-        marginTop: 110,
-        marginBottom: 84,
+    submitButton: {
+        marginVertical: 35,
         width: '50%',
     },
 
@@ -83,16 +74,6 @@ const styles = StyleSheet.create({
     },
 
     //MapScreen
-    flex: {
-        flex: 1
-    },
-    fab: {
-        position: "absolute",
-        right: 50,
-        bottom: 50,
-        margin: 20
-    },
-    //fab
     buttonCallout: {
         flex: 1,
         flexDirection:'row',
@@ -149,38 +130,26 @@ const styles = StyleSheet.create({
     },
 
     //SignInScreen
-    imageSignIn: {
-                 backgroundColor: "#d6f9f8",
-                 flex: 2,
-                 display: 'flex',
-                 alignItems: 'center',
-                 justifyContent: 'center',
-             },
-    containerSignIn: {
-                backgroundColor: '#d6f9f8',
-                flex: 3,
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                width: '100%',
-                paddingVertical: 200,
-            },
-
-    //SignUpScreen
-    imageSignUp: {
+    image: {
         backgroundColor: "#d6f9f8",
-        flex: 0.2,
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+    containerSignIn: {
+        backgroundColor: '#d6f9f8',
+        flex: 1,
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
+        width: '100%'
     },
     //UserScreen
     containerUserScreen: {
-         backgroundColor: "#d6f9f8",
-         flex: 1,
-         justifyContent: 'center',
-         alignItems: 'center',
-         padding: 15,
+        backgroundColor: "#d6f9f8",
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        padding: 15,
     },
     nombre:{
         marginVertical:10,
@@ -213,8 +182,6 @@ const styles = StyleSheet.create({
         width: '100%',
         height: '100%',
     },
-
-   
 });
 
 export default styles

@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyleSheet, Text, View, SafeAreaView} from 'react-native'
+import { Text, View, SafeAreaView} from 'react-native'
 import { ScrollView} from 'react-native-gesture-handler';
 import { BlackButton, LikeButton, DislikeButton} from '../components/buttonComponents/buttons';
 import { writeUserDisiked, writeUserLiked, writeUserSaved } from '../firebase/database';
@@ -7,17 +7,15 @@ import styles from '../styles/Styles';
 
 
 export const ShowStoreScreen = ({ navigator, route }:any) => {
-    //console.log(route.params);
-    
-    //TODO: evitar que se inicie un ciclo infinito
-    const handlerLike = (store:string) => {
-        writeUserLiked(store)
+    //TODO: fix handlers
+    const handlerLike = async (store:string) => {
+        await writeUserLiked(store)
     }
-    //TODO: evitar que se inicie un ciclo infinito
+
     const handlerDislike = (store:string) => {
         writeUserDisiked(store)
     }
-    //TODO: evitar que se inicie un ciclo infinito
+
     const handlerSave = (store:string) => {
         writeUserSaved(store)
     }

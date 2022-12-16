@@ -1,6 +1,6 @@
 import { StackActions, useNavigation } from '@react-navigation/native';
 import React, { useEffect, useState } from 'react';
-import { TextInput, StyleSheet, View, Button, Text } from 'react-native';
+import { TextInput, View, Button, Text } from 'react-native';
 import { signUp } from '../../firebase/auth';
 import { writeUserData } from '../../firebase/database';
 import { auth } from '../../firebase/firebaseConfig';
@@ -111,7 +111,7 @@ export const SignUpComponent = () => {
                 style={styles.input}
                 secureTextEntry
             />
-            <View style={styles.botonSigUpComponent}>
+            <View style={styles.submitButton}>
                 <Button
                     onPress={handlerSubmit}
                     title={loading ? 'Creando usuario...' : 'Registrarse'}
@@ -122,4 +122,3 @@ export const SignUpComponent = () => {
         </View>
     )
 }
-

@@ -1,10 +1,9 @@
 import React from 'react'
-import { View, Text, TouchableOpacity,StyleSheet} from 'react-native'
+import { Text, TouchableOpacity} from 'react-native'
 import styles from '../../styles/Styles';
 
 
 export function BlackButton(props){
-
     const { onPress, text } = props
 
     return(
@@ -24,11 +23,9 @@ export function BlackButton(props){
             </Text>
         </TouchableOpacity>
     )
-
 }
 
 export function LikeButton(props){
-
     const { onPress, text } = props
 
     return(
@@ -50,11 +47,9 @@ export function LikeButton(props){
             </Text>
         </TouchableOpacity>
     )
-
 }
 
 export function DislikeButton(props){
-
     const { onPress, text } = props
 
     return(
@@ -76,7 +71,4 @@ export function DislikeButton(props){
             </Text>
         </TouchableOpacity>
     )
-
 }
-
-

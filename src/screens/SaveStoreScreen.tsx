@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import { Button, StyleSheet, Text, TextInput, View } from 'react-native'
 import { writeStoreData } from '../firebase/database';
 import { auth } from '../firebase/firebaseConfig';
-import CheckBox from 'expo-checkbox';
 import styles from '../styles/Styles';
 
 
@@ -17,7 +16,7 @@ export const SaveStoreScreen = ({ navigation, route }:any) => {
     const [webpage, onChangeWebpage] = useState('');
 
     const store = {
-        name: name,
+        name_sucursal: name,
         description: description,
         delivery: delivery,
         address: address,
@@ -102,4 +101,3 @@ export const SaveStoreScreen = ({ navigation, route }:any) => {
 }
 
 export default SaveStoreScreen
-

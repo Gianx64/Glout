@@ -1,9 +1,11 @@
 import { StackActions, useNavigation } from '@react-navigation/native'
 import React, { useEffect, useState } from 'react'
-import { StyleSheet, View, Text, Button, Image } from 'react-native'
+import { View, Text, Button, Image } from 'react-native'
 import { signOut } from '../firebase/auth'
 import { auth } from '../firebase/firebaseConfig' 
 import styles from '../styles/Styles';
+import { ref, onValue } from "firebase/database";
+import { database } from "../firebase/firebaseConfig";
 
 interface IError {
     code: string;
@@ -11,12 +13,14 @@ interface IError {
 }
 
 const UserScreen = () => {
+    const [userData, setUserData] = useState([]);
     const [loading, setLoading] = useState(false);
+    const [signingOut, setSigningOut] = useState(false);
     const [error, setError] = useState<IError | undefined>(undefined);
 	const navigation = useNavigation();
 
     const handlerSubmit = async () => {
-        setLoading(true);
+        setSigningOut(true);
         const successSignOut = await signOut();
         if (successSignOut !== true) {
             console.log(successSignOut.toString());
@@ -29,15 +33,21 @@ const UserScreen = () => {
                 code: '400',
                 message: successSignOut.toString(),
             })
-            setLoading(false);
+            setSigningOut(false);
             alert(error?.message)
         }
     }
 
+	async function getUserData() {
+        onValue(ref(database, "user/"+auth.currentUser?.uid), (snapshot) => setUserData(snapshot.val()));
+        setLoading(false);
+    }
+
     useEffect(() => {
+        getUserData()
 		const unsubscribe = auth.onAuthStateChanged(user => {
 			if (user === null) {
-                setLoading(false);
+                setSigningOut(false);
                 navigation.dispatch(StackActions.popToTop());
                 navigation.dispatch({
                     ...StackActions.replace('SignIn Screen'),
@@ -48,20 +58,28 @@ const UserScreen = () => {
 		})
         return unsubscribe;
 	}, [])
-    
+
+    if (loading) {
+        return (
+            <Text>Cargando...</Text>
+        )
+    }
+
     return (
         <View style={styles.containerUserScreen}>
              <Image
                 source={require('../../assets/usuario.png')}
                 style={styles.img}
              />
-            <Text style={styles.nombre}>Nombre: </Text>
-            <Text style={styles.nombre}>Apellido: </Text>
+            <Text style={styles.nombre}>Nombre: {userData.name}</Text>
+            <Text style={styles.nombre}>Apellido: {userData.surname}</Text>
             <Text style={styles.correo}>Correo electrónico: {auth.currentUser?.email}</Text>
-            <Button title={loading ? 'Saliendo...' : 'Salir'}
-				onPress={handlerSubmit}
-                disabled={loading}
-			/>
+            <View style={styles.submitButton}>
+                <Button title={signingOut ? 'Cerrando Sesión...' : 'Cerrar Sesión'}
+                    onPress={handlerSubmit}
+                    disabled={loading}
+                />
+            </View>
         </View>
     )
 }

@@ -1,6 +1,6 @@
 import { useNavigation, StackActions } from '@react-navigation/native';
 import React, { useEffect, useState } from 'react'
-import { Button, TextInput, View, StyleSheet } from 'react-native'
+import { Button, TextInput, View } from 'react-native'
 import { signIn } from '../../firebase/auth';
 import { auth } from '../../firebase/firebaseConfig';
 import styles from '../../styles/Styles';
@@ -76,9 +76,8 @@ export const SignInComponent = () => {
 		return unsubscribe;
 	}, [])
 
-
     return (
-        <View style={styles.container}>
+        <>
             <TextInput
                 placeholder="Ingrese Email"
                 onChangeText={setEmail}
@@ -93,7 +92,7 @@ export const SignInComponent = () => {
                 style={styles.input}
                 secureTextEntry
             />
-            <View style={styles.botonSigInComponent}>
+            <View style={styles.submitButton}>
                 <Button
                     onPress={handlerSubmit}
                     title={loading ? 'Iniciando Sesión...' : 'Inicia Sesión'}
@@ -101,12 +100,12 @@ export const SignInComponent = () => {
                     disabled={loading || correctData}
                 />
             </View>
-            <Button
-				title={'Registrarse'}
-				onPress={() => {navigation.dispatch(StackActions.push('SignUp Screen'))}}
-			/>
-        </View>
+            <View style={styles.submitButton}>
+                <Button
+                    title={'Registrarse'}
+                    onPress={() => {navigation.dispatch(StackActions.push('SignUp Screen'))}}
+                />
+            </View>
+        </>
     )
 }
-
-

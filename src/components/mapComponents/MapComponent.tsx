@@ -1,16 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import * as Location from 'expo-location';
 import MapView, { Callout, Marker } from 'react-native-maps';
-import { StyleSheet, Text } from 'react-native';
-import { readStoresData } from '../../firebase/database';
+import { Text } from 'react-native';
 import { StackActions, useNavigation } from '@react-navigation/native';
-import { data } from './data';
-import { FAB } from 'react-native-paper';
 import styles from '../../styles/Styles';
-
+import { readStoresData } from '../../firebase/database';
+import { ref, onValue } from "firebase/database";
+import { database } from "../../firebase/firebaseConfig";
 
 type store = {
-    name: string,
+    name_sucursal: string,
     address: string,
     contact: string,
     coords: {latitude: number, longitude: number} |
@@ -30,18 +29,18 @@ export const MapComponent = () => {
         latitude: -33.44,
         longitude: -70.65,
     });
-    const stores = readStoresData();
-    //const [stores, setStores] = useState({});
+    const [stores, setStores] = useState([]);
+    const [loading, setLoading] = useState(true);
 
 	const navigation = useNavigation();
 
 	useEffect(() => {
-		getLocationPermission();
-        //setStores(readStoresData());
-        //console.log(stores);
+        getLocationPermission();
+        setLoading(true);
 	}, [])
 
 	async function getLocationPermission() {
+        onValue(ref(database, "stores"), (snapshot) => setStores(snapshot.val()));
 		let peticion = await Location.requestForegroundPermissionsAsync();
 		if (peticion.status !== 'granted') {
 			alert('Permiso denegado.');
@@ -53,7 +52,14 @@ export const MapComponent = () => {
 			longitude: location.coords.longitude,
 		}
 		setUbicacion(current);
+        setLoading(false);
 	}
+
+    if (loading) {
+        return (
+            <Text>Cargando...</Text>
+        )
+    }
 
     return (
         <MapView style={styles.map}
@@ -74,7 +80,7 @@ export const MapComponent = () => {
                     <Text>Ingresar tienda</Text>
                 </Callout>
             </Marker>
-            {data.map((store, id) => {
+            {stores.map((store:store) => {
                 return (
                     <Marker
                         pinColor='blue'
@@ -89,4 +95,3 @@ export const MapComponent = () => {
 		</MapView>
     )
 }
-
