@@ -23,7 +23,7 @@ const writeStoreData = async (store:store) => {
   get(storesRef).then((snapshot) => {
     const data = snapshot.val();
     store.id = data.length;
-    console.log(store.id);
+    //console.log(store.id);
     data.push(store);
     return set(storesRef, data);
   });
